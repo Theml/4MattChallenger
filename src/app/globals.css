@@ -2,26 +2,65 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh
+}
+
+
+.custom-select {
+  appearance: url('../Img/🦆 icon _expand more_.png');
+  padding: 8px 24px 8px 8px;
+  background-color: transparent;
+  border-radius: 17px;
+  border: 1px solid #A8A8A8;
+  background: #E0E0E0;
+  position: relative;
+}
+
+.custom-select::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #E0E0E0;
+  background-image: url('../Img/🦆 icon _expand more_.png'); 
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: center right 8px;
+  widht: 16px;
+  height: 16px;
+}
+
+.nav-link {
+  color: #333; 
+  text-decoration: none; 
+  position: relative; 
+}
+.nav-link:hover {
+  color: #663399;
+}
+.nav-link:active {
+  color: #663399; 
+
+}
+.nav-link::after {
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: -3px; 
+  left: 0;
+  width: 100%;
+  height: 2px; 
+  background-color: #663399; 
+  transform: scaleX(0); 
+  transform-origin: bottom left; 
+  transition: transform 0.2s ease; 
+}
+.nav-link:hover::after,
+.nav-link:active::after {
+  transform: scaleX(1); 
 }

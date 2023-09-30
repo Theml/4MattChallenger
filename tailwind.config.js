@@ -7,6 +7,12 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors:{
+        'newViolet': 'rgba(125, 58, 208, 1)',
+        'darkNewViolet': 'rgba(74, 0, 166, 1)',
+        'newGray': '#EEEEEE',
+        'textNewGray': 'rgb(137 136 136)',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
