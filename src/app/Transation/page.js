@@ -1,9 +1,8 @@
 import Aside from '@/components/Aside'
-import React from 'react'
 
 export default function page() {
     return (
-        <main>
+        <main className='flex flex-1 max-h-screen w-full h-full'>
           <Aside/>
 
           <h1>Hello World!</h1>
