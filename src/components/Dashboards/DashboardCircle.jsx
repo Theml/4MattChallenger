@@ -17,14 +17,6 @@ export default function DashboardCircle({ data }) {
       .attr('style', 'max-width: 100%; height: auto;')
       .append('g')
       .attr('transform', `translate(${width / 2},${height / 2})`);
-
-
-    svg.append('rect')
-      .attr('width', width )
-      .attr('height', height  )
-      .attr('rx', 125) 
-      .attr('ry', 75) 
-      .attr('fill', 'white');
     
     const data = jsonData;
 
@@ -96,7 +88,7 @@ export default function DashboardCircle({ data }) {
 
   return (
     <div className="m-10">
-        <svg ref={svgRef}></svg>
+        <svg ref={svgRef} className='bg-white rounded-lg shadow-lg'></svg>
     </div>
   );
 }
