@@ -86,11 +86,6 @@ function DashboardHorizontalBar({ data }) {
       .attr('width', d => x(d.Spend))
       .attr('height', y.bandwidth());
 
-    svg.append('rect')
-      .attr('width',width)
-      .attr('height',height)
-      .attr('fill', 'white')
-      .attr('border-radius', '');
     // Eixo x
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
@@ -102,7 +97,7 @@ function DashboardHorizontalBar({ data }) {
 
   return (
     <div>
-      <svg ref={svgRef}></svg>
+      <svg ref={svgRef} className='bg-white rounded-lg shadow-lg'></svg>
     </div>
   );
 }
