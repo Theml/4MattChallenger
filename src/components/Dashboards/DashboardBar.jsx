@@ -38,11 +38,6 @@ function DashboardBar({ data }) {
           .nice()
           .range([height, 0]);
 
-        svg.append('rect')
-          .attr('width', width + margin.left + margin.right)
-          .attr('height', height + margin.top + margin.bottom)
-          .attr('fill', 'white');
-
         svg.selectAll('rect')
           .data(data)
           .enter()
@@ -70,7 +65,7 @@ function DashboardBar({ data }) {
   
     return (
       <div>
-        <svg ref={svgRef}></svg>
+        <svg ref={svgRef} className='bg-white rounded-lg shadow-lg'></svg>
       </div>
     );
   }
