@@ -36,11 +36,6 @@ export default function Dashboard({ data }) {
         .x(d => x(new Date(d.Data)))
         .y0(height)
         .y1(d => y(d.Spend));
-
-      svg.append('rect')
-        .attr('width',width +  margin.left + margin.right)
-        .attr('height',height +  margin.top + margin.bottom)
-        .attr('fill', 'white')
   
       svg.append('g')
         .attr('transform', `translate(0,${height})`)
@@ -72,7 +67,7 @@ export default function Dashboard({ data }) {
   
     return (
       <div className="ml-6 mt-14">
-        <svg ref={svgRef}></svg>
+        <svg ref={svgRef} className='bg-white rounded-lg shadow-lg'></svg>
       </div>
     );
   }
