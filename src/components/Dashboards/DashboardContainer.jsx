@@ -1,12 +1,13 @@
 "use client"
 import Dashboard from './Dashboard';
 import DashboardBar from './DashboardBar';
-import DashboardCircle from './DashboardCircle';
+import DashboardInactiveUsers from './DashboardInactiveUsers';
 import DashboardHorizontalBar from './DashboardHorizontalBar';
 import Filter from '../FilteredData';
 import { useState } from 'react';
 import { ApplyFilter } from '../Filter';
 import jsonData from '../../../public/data/Dados.json'
+import DashboardActiveUsers from './DashboardActiveUsers';
 
 function DashboardContainer() {
 
@@ -14,7 +15,7 @@ function DashboardContainer() {
     startDate: '',
     endDate: '',
     selectedCategory: '',
-    selectedApp: '',
+    selectedApplication: '',
   })
 
   const [filteredData, setFilteredData] = useState([])
@@ -29,32 +30,10 @@ function DashboardContainer() {
       newData,
       newFilterOptions.startDate,
       newFilterOptions.endDate,
-      null, 
-      null 
+      newFilterOptions.selectedCategory || null,
+      newFilterOptions.selectedApplication || null, 
     );
-  
-    // Apply category filter if a category is selected
-    if (newFilterOptions.selectedCategory) {
-      newData = ApplyFilter(
-        newData,
-        newFilterOptions.startDate,
-        newFilterOptions.endDate,
-        newFilterOptions.selectedCategory,
-        null  
-      );
-    }
-  
-    // Apply application filter if an application is selected
-    if (newFilterOptions.selectedApplication) {
-      newData = ApplyFilter(
-        newData,
-        newFilterOptions.startDate,
-        newFilterOptions.endDate,
-        null,  
-        newFilterOptions.selectedApplication
-      );
-    }
-  
+      console.log(newData);
     setFilteredData(newData);
   };
 
@@ -66,7 +45,7 @@ function DashboardContainer() {
       <div className="mb-4">
 
         <Dashboard 
-          data={filteredData}
+          filteredData={filteredData} startDate={filterOptions.startDate} endDate={filterOptions.endDate} selectedApplication='' selectedCategory=''
         />
 
       </div>
@@ -76,21 +55,21 @@ function DashboardContainer() {
         <div className="ml-4 w-1/2 ">
 
           <DashboardBar 
-          data={filteredData}
+          filteredData={filteredData} startDate='' endDate='' selectedApplication='' selectedCategory=''
           />
           <DashboardHorizontalBar 
-          data={filteredData}
+          filteredData={filteredData} startDate='' endDate='' selectedApplication='' selectedCategory=''
           />
 
         </div>
 
         <div className=" ml-4 w-1/2 ">
 
-          <DashboardBar className='bg-white'
-          data={filteredData}
+          <DashboardActiveUsers
+          filteredData={filteredData} startDate='' endDate='' selectedApplication='' selectedCategory=''
           />
-          <DashboardCircle 
-          data={filteredData}
+          <DashboardInactiveUsers 
+          filteredData={filteredData} startDate='' endDate='' selectedApplication='' selectedCategory=''
           />
           
         </div>

@@ -2,16 +2,20 @@
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import jsonData from '../../../public/data/Dados.json';
+import { ApplyFilter } from '../Filter';
 
 // Nesse dashboard default para y é Application e para x é Spend
 // Em caso de alteração pelo filtro deve mudar o Y para uma aplicação especifica e aplicar o intervalo de tempo solicitado sem alterar o X.
-function DashboardHorizontalBar({ data }) {
+function DashboardHorizontalBar({ filteredData, startDate, endDate, selectedApplication, selectedCategory }) {
   const svgRef = useRef();
 
   useEffect(() => {
+
+    const filteredData = ApplyFilter(jsonData, startDate, endDate, selectedCategory, selectedApplication)
+
     // Define chart dimensions and margins
     const width = 549;
-    const height = 237;
+    const height = 217;
     const margin = { top: 30, right: 30, bottom: 30, left: 40 };
 
     // Create SVG element and set dimensions
@@ -22,8 +26,8 @@ function DashboardHorizontalBar({ data }) {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     // Handle single data point case
-    if (data.length === 1) {
-      const singleDataPoint = data[0];
+    if (filteredData.length === 1) {
+      const singleDataPoint = filteredData[0];
 
       // Display a single bar for the filtered data
       svg.append('rect')
@@ -38,22 +42,22 @@ function DashboardHorizontalBar({ data }) {
 
     // For multiple data points, render the bar chart
     const y = d3.scaleBand()
-      .domain(data.map(d => d.Application))
+      .domain(filteredData.map(d => d.Application))
       .range([0, height])
       .padding(0.1);
 
     const x = d3.scaleLinear()
-      .domain([0, d3.max(data, d => d.Spend)])
+      .domain([0, d3.max(filteredData, d => d.Spend)])
       .nice()
       .range([0, width]);
 
     const colorScale = d3.scaleSequential()
-      .domain([0, data.length - 1])
+      .domain([0, filteredData.length - 1])
       .interpolator(d3.interpolateRainbow);
 
     // Data binding
     const bars = svg.selectAll('rect')
-      .data(data);
+      .data(filteredData);
 
     // Exit old data (remove bars that are no longer needed)
     bars.exit().remove();
@@ -93,11 +97,14 @@ function DashboardHorizontalBar({ data }) {
 
     // Remove the grid lines of the x-axis if needed
     svg.selectAll('.tick line').remove();
-  }, [data]);
+  }, [ filteredData, startDate, endDate, selectedApplication, selectedCategory ]);
 
   return (
-    <div>
-      <svg ref={svgRef} className='bg-white rounded-lg shadow-lg'></svg>
+    <div className='mt-2'>
+      <span>
+        Most expensive Applications
+      </span>
+      <svg ref={svgRef} className='bg-white rounded-lg shadow-lg mt-2'></svg>
     </div>
   );
 }
