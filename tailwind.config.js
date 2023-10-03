@@ -7,8 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors:{
+     colors:{
         'newViolet': 'rgba(125, 58, 208, 1)',
+        'hiddenButtonColor': '#9964DA',
         'darkNewViolet': 'rgba(74, 0, 166, 1)',
         'newGray': '#EEEEEE',
         'textNewGray': 'rgb(137 136 136)',
