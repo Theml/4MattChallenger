@@ -45,7 +45,11 @@ function DashboardContainer() {
       <div className="mb-4">
 
         <Dashboard 
-          filteredData={filteredData} startDate={filterOptions.startDate} endDate={filterOptions.endDate} selectedApplication='' selectedCategory=''
+          filteredData={filteredData} 
+          startDate={filterOptions.startDate} 
+          endDate={filterOptions.endDate} 
+          selectedApplication={filterOptions.selectedApplication} 
+          selectedCategory={filterOptions.selectedCategory}
         />
 
       </div>
@@ -55,10 +59,18 @@ function DashboardContainer() {
         <div className="ml-4 w-1/2 ">
 
           <DashboardBar 
-          filteredData={filteredData} startDate='' endDate='' selectedApplication='' selectedCategory=''
+            filteredData={filteredData} 
+            startDate={filterOptions.startDate} 
+            endDate={filterOptions.endDate} 
+            selectedApplication={filterOptions.selectedApplication} 
+            selectedCategory={filterOptions.selectedCategory}
           />
           <DashboardHorizontalBar 
-          filteredData={filteredData} startDate='' endDate='' selectedApplication='' selectedCategory=''
+            filteredData={filteredData} 
+            startDate={filterOptions.startDate} 
+            endDate={filterOptions.endDate} 
+            selectedApplication={filterOptions.selectedApplication} 
+            selectedCategory={filterOptions.selectedCategory}
           />
 
         </div>
@@ -66,10 +78,18 @@ function DashboardContainer() {
         <div className=" ml-4 w-1/2 ">
 
           <DashboardActiveUsers
-          filteredData={filteredData} startDate='' endDate='' selectedApplication='' selectedCategory=''
+            filteredData={filteredData} 
+            startDate={filterOptions.startDate} 
+            endDate={filterOptions.endDate} 
+            selectedApplication={filterOptions.selectedApplication} 
+            selectedCategory={filterOptions.selectedCategory}
           />
           <DashboardInactiveUsers 
-          filteredData={filteredData} startDate='' endDate='' selectedApplication='' selectedCategory=''
+            filteredData={filteredData} 
+            startDate={filterOptions.startDate} 
+            endDate={filterOptions.endDate} 
+            selectedApplication={filterOptions.selectedApplication} 
+            selectedCategory={filterOptions.selectedCategory}
           />
           
         </div>
