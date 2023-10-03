@@ -5,7 +5,12 @@ import IMG1 from '../Img/🦆 icon _Home_.png'
 import IMG2 from '../Img/Vector.png'
 import IMG3 from '../Img/definicoes.png'
 import IMG4 from '../Img/do-utilizador.png'
+import insta from '../Img/image003.jpg'
+import linkedin from '../Img/image002.jpg'
+import face from '../Img/image004.jpg'
+
 import { useState } from "react";
+
 export default function Aside() {
 
   const [toggle, setToggle] = useState(true)
@@ -48,6 +53,22 @@ export default function Aside() {
 
         </div>
 
+        <ul className="flex items-end mt-auto">
+              <a className="m-1" href='https://www.instagram.com/4matt_tecnologia/'>
+                  <Image src={insta} alt="" />
+                </a>
+
+                <a className="m-1" href='https://www.facebook.com/4mattecnologia'>
+                  <Image src={face} alt="" />
+                </a>
+
+                <a className="m-1" href='https://www.linkedin.com/company/4matttecnologia/'>
+                  <Image src={linkedin} alt="" />
+                </a>
+
+          </ul>
+
+        
       </aside>
   )
 }
