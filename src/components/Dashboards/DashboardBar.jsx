@@ -39,21 +39,21 @@ function DashboardBar({ filteredData, startDate, endDate, selectedApplication, s
           .nice()
           .range([height, 0]);
 
-        // const bars = d3.selectAll('rect')
-        //   .data(data)
+        const bars = d3.selectAll('rect')
+          .data(filteredData)
 
-        // bars.exit().remove()
+        bars.exit().remove()
 
-        // const newBars = bars.enter()
-        //   .append('rect')
-        //   .attr('x', 0)
-        //   .attr('fill', (d, i) => colorScale(i))
+        const newBars = bars.enter()
+          .append('rect')
+          .attr('x', 0)
+          .attr('fill', (d, i) => colorScale(i))
 
-        //   bars.merge(newBars)
-        //   .attr('x', d => x(d.Category))
-        //   .attr('y', d => y(d.Spend))
-        //   .attr('height', d => height - y(d.Spend))
-        //   .attr('width', x.bandwidth());
+          bars.merge(newBars)
+          .attr('x', d => x(d.Category))
+          .attr('y', d => y(d.Spend))
+          .attr('height', d => height - y(d.Spend))
+          .attr('width', x.bandwidth());
 
         svg.selectAll('rect')
           .data(filteredData)
