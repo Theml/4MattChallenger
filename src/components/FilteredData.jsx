@@ -2,13 +2,16 @@
 import { useState } from 'react';
 import jsonData from '../../public/data/Dados.json'
 
-const Filter = ({ onChange, categoryOptions, applicationOptions }) => {
+const Filter = ({ onChange, applicationOptions, categoryOptions }) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedApplication, setSelectedApplication] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedApplication, setSelectedApplication] = useState(null);
 
     const data = jsonData;
+
+    // categoryOptions = ['Produtividade', 'BI', 'RH', 'Video Chamada']
+    // applicationOptions = ['Microsoft Office 365', 'Jira', 'Solides', 'Zoom', 'Power BI']
 
     const Categories = Array.from(new Set(data.map((item) => item.Category)));
     const App = Array.from(new Set(data.map((item) => item.Application)));
@@ -22,13 +25,39 @@ const Filter = ({ onChange, categoryOptions, applicationOptions }) => {
       };
   
     const handleCategoryChange = (event) => {
-      setSelectedCategory(event.target.value);
+      const selectedCategory = event.target.value;
+      setSelectedCategory(selectedCategory);
+
+      const filteredData = selectedCategory
+      ? data.filter((item) => item.Category === selectedCategory)
+      : data;
+
+      onChange({
+        startDate,
+        endDate,
+        category: selectedCategory || null,
+        application: selectedApplication || null,
+        filteredData,
+      });
     };
   
     const handleApplicationChange = (event) => {
-      setSelectedApplication(event.target.value);
+      const selectedApplication = event.target.value;
+      setSelectedApplication(selectedApplication);
+
+      const filteredData = selectedApplication
+      ? data.filter((item) => item.Application === selectedApplication)
+      : data;
+
+      onChange({
+        startDate,
+        endDate,
+        category: selectedCategory || null,
+        application: selectedApplication || null,
+        filteredData,
+      });
     };
-  
+    
     // Pass the selected values to the parent component when the filter changes
     const applyFilter = () => {
       onChange({
@@ -43,13 +72,13 @@ const Filter = ({ onChange, categoryOptions, applicationOptions }) => {
       <div className="justify-center items-center flex h-12 p-4 space-y-4">
         <div>
           <input
-            className='mr-2 rounded-xl mt-4'
+            className='custom-select mr-2 rounded-xl mt-4'
             type="date"
             value={startDate}
             onChange={handleStartDateChange}
           />
           <input
-            className='rounded-xl mt-4'
+            className='custom-select rounded-xl mt-4'
             type="date"
             value={endDate}
             onChange={handleEndDateChange}
@@ -61,7 +90,8 @@ const Filter = ({ onChange, categoryOptions, applicationOptions }) => {
             value={selectedCategory}
             onChange={handleCategoryChange}
           >
-            <option value="">Select a category</option>
+            {/* <option value="">Select a category</option> */}
+            <option value="">All Categories</option>
             {Categories.map((category) => (
               <option key={category} value={category}>
                 {category}
@@ -75,7 +105,8 @@ const Filter = ({ onChange, categoryOptions, applicationOptions }) => {
             value={selectedApplication}
             onChange={handleApplicationChange}
           >
-            <option value="">Select an application</option>
+            {/* <option value="">Select an application</option> */}
+            <option value="">All Applications</option>
             {App.map((application) => (
               <option key={application} value={application}>
                 {application}
@@ -84,7 +115,7 @@ const Filter = ({ onChange, categoryOptions, applicationOptions }) => {
           </select>
         </div>
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-hiddenButtonColor hover:bg-newViolet text-white px-4 py-2 rounded"
           onClick={applyFilter}
         >
           Apply Filter
@@ -92,5 +123,5 @@ const Filter = ({ onChange, categoryOptions, applicationOptions }) => {
       </div>
     );
   };
-  
+
   export default Filter;
