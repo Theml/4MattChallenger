@@ -9,7 +9,7 @@ export default function Header() {
         <li className="nav-link mt-2 mx-6 hover:text-newViolet focus:text-newViolet active:text-newViolet">
 
           <Link href='/'>
-            Home
+            Cost optimization dashboard
           </Link>
 
         </li>
