@@ -12,35 +12,33 @@ function DashboardHorizontalBar({ filteredData, startDate, endDate, selectedAppl
   useEffect(() => {
 
     const filteredData = ApplyFilter(jsonData, startDate, endDate, selectedCategory, selectedApplication)
-
-    // Define chart dimensions and margins
+   
     const width = 549;
     const height = 217;
     const margin = { top: 30, right: 30, bottom: 30, left: 40 };
-
-    // Create SVG element and set dimensions
+   
     const svg = d3.select(svgRef.current)
       .attr('width', width + margin.left + margin.right)
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`);
+ 
+    const uniqueApps = [... new Set(filteredData.map(d => d.Application))]
+    if (uniqueApps.length === 1) {
+      const singleAppData = filteredData[0];
+      const maxSpend = d3.max(jsonData, d => d.Spend); 
 
-    // Handle single data point case
-    if (filteredData.length === 1) {
-      const singleDataPoint = filteredData[0];
-
-      // Display a single bar for the filtered data
       svg.append('rect')
         .attr('x', 0)
-        .attr('y', 0) // Adjust as needed
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-        .attr('fill', 'steelblue'); // Set color as needed
+        .attr('y', 0)
+        .attr('width', width)
+        .attr('height', height)
+        .attr('fill', 'steelblue')
+        .attr('width', (singleAppData.Spend / maxSpend) * width); 
 
       return;
     }
-
-    // For multiple data points, render the bar chart
+   
     const y = d3.scaleBand()
       .domain(filteredData.map(d => d.Application))
       .range([0, height])
@@ -55,20 +53,18 @@ function DashboardHorizontalBar({ filteredData, startDate, endDate, selectedAppl
       .domain([0, filteredData.length - 1])
       .interpolator(d3.interpolateRainbow);
 
-    // Data binding
+  
     const bars = svg.selectAll('rect')
       .data(filteredData);
 
-    // Exit old data (remove bars that are no longer needed)
     bars.exit().remove();
 
-    // Enter new data (create bars for new data points)
     const newBars = bars.enter()
       .append('rect')
       .attr('x', 0)
       .attr('fill', (d, i) => colorScale(i))
         .on('mouseover', (event, d) => {
-        // Exiba a legenda quando o mouse passar sobre a barra
+      
         svg.append('text')
           .attr('x', 10)
           .attr('y', y(d.Application) + y.bandwidth() / 2)
@@ -78,24 +74,21 @@ function DashboardHorizontalBar({ filteredData, startDate, endDate, selectedAppl
           .text(d.Application);
       })
       .on('mouseout', (event, d) => {
-        // Remova a legenda quando o mouse sair da barra
+        
         svg.selectAll('text')
           .filter('.legend-text')
           .remove();
       });
 
-    // Merge enter and update selections and update attributes
     bars.merge(newBars)
       .attr('y', d => y(d.Application))
       .attr('width', d => x(d.Spend))
       .attr('height', y.bandwidth());
 
-    // Eixo x
     svg.append('g')
       .attr('transform', `translate(0,${height})`)
       .call(d3.axisBottom(x).ticks(5));
 
-    // Remove the grid lines of the x-axis if needed
     svg.selectAll('.tick line').remove();
   }, [ filteredData, startDate, endDate, selectedApplication, selectedCategory ]);
 

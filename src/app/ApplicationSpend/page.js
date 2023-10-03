@@ -6,6 +6,7 @@ export default function ApplicationSpend() {
       <Aside/>
 
       <h1>Hello World!</h1>
+      
     </main>
   )
 }

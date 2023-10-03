@@ -88,10 +88,13 @@ export default function DashboardActiveUsers({ data }) {
 
   return (
     <div className="mt-2">
+
       <span>
         Paid Users Status: Active
       </span>
+
         <svg ref={svgRef} className='bg-white rounded-lg shadow-lg'></svg>
+        
     </div>
   );
 }

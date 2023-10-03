@@ -25,7 +25,6 @@ function DashboardContainer() {
   
     let newData = jsonData;
   
-    // Apply date filter
     newData = ApplyFilter(
       newData,
       newFilterOptions.startDate,
@@ -33,7 +32,6 @@ function DashboardContainer() {
       newFilterOptions.selectedCategory || null,
       newFilterOptions.selectedApplication || null, 
     );
-      console.log(newData);
     setFilteredData(newData);
   };
 
@@ -59,18 +57,18 @@ function DashboardContainer() {
         <div className="ml-4 w-1/2 ">
 
           <DashboardBar 
-            filteredData={filteredData} 
-            startDate={filterOptions.startDate} 
-            endDate={filterOptions.endDate} 
-            selectedApplication={filterOptions.selectedApplication} 
-            selectedCategory={filterOptions.selectedCategory}
+          filteredData={filteredData} 
+          startDate={filterOptions.startDate} 
+          endDate={filterOptions.endDate} 
+          selectedApplication={filterOptions.selectedApplication} 
+          selectedCategory={filterOptions.selectedCategory}
           />
           <DashboardHorizontalBar 
-            filteredData={filteredData} 
-            startDate={filterOptions.startDate} 
-            endDate={filterOptions.endDate} 
-            selectedApplication={filterOptions.selectedApplication} 
-            selectedCategory={filterOptions.selectedCategory}
+          filteredData={filteredData} 
+          startDate={filterOptions.startDate} 
+          endDate={filterOptions.endDate} 
+          selectedApplication={filterOptions.selectedApplication} 
+          selectedCategory={filterOptions.selectedCategory}
           />
 
         </div>
@@ -78,18 +76,18 @@ function DashboardContainer() {
         <div className=" ml-4 w-1/2 ">
 
           <DashboardActiveUsers
-            filteredData={filteredData} 
-            startDate={filterOptions.startDate} 
-            endDate={filterOptions.endDate} 
-            selectedApplication={filterOptions.selectedApplication} 
-            selectedCategory={filterOptions.selectedCategory}
+          filteredData={filteredData} 
+          startDate={filterOptions.startDate} 
+          endDate={filterOptions.endDate} 
+          selectedApplication={filterOptions.selectedApplication} 
+          selectedCategory={filterOptions.selectedCategory}
           />
           <DashboardInactiveUsers 
-            filteredData={filteredData} 
-            startDate={filterOptions.startDate} 
-            endDate={filterOptions.endDate} 
-            selectedApplication={filterOptions.selectedApplication} 
-            selectedCategory={filterOptions.selectedCategory}
+          filteredData={filteredData} 
+          startDate={filterOptions.startDate} 
+          endDate={filterOptions.endDate} 
+          selectedApplication={filterOptions.selectedApplication} 
+          selectedCategory={filterOptions.selectedCategory}
           />
           
         </div>

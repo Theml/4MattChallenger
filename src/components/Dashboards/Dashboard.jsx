@@ -69,8 +69,11 @@ export default function Dashboard({ filteredData, startDate, endDate, selectedAp
   
     return (
       <div className=" ml-4 mt-14">
+        
         <span>Invoice spend overtime</span>
+
         <svg ref={svgRef} className='bg-white rounded-lg shadow-lg'></svg>
+
       </div>
     );
   }

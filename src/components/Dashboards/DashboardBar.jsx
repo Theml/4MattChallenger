@@ -24,6 +24,21 @@ function DashboardBar({ filteredData, startDate, endDate, selectedApplication, s
           .attr('transform', `translate(${margin.left},${margin.top})`);
 
         const categories = [...new Set(filteredData.map(d => d.Category))];
+        if (categories.length === 1) {
+          const singleCategory = filteredData[0]
+          const maxSpend = d3.max(jsonData.Spend)
+
+          svg.append('rect')
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('width', width)
+          .attr('height', height)
+          .attr('fill', 'steelblue')
+          .attr('width', (singleCategory.Spend / maxSpend) * width);
+
+          return
+        }
+
         const colorScale = d3.scaleSequential()
           .domain([0, categories.length - 1])
           .interpolator(d3.interpolateRainbow);
@@ -33,7 +48,6 @@ function DashboardBar({ filteredData, startDate, endDate, selectedApplication, s
           .range([0, width])
           .padding(0.1);
     
-        // Escala y para 'Spend'
         const y = d3.scaleLinear()
           .domain([0, d3.max(filteredData, d => d.Spend)])
           .nice()
@@ -65,7 +79,6 @@ function DashboardBar({ filteredData, startDate, endDate, selectedApplication, s
           .attr('height', d => height - y(d.Spend))
           .attr('fill',(d, i) => colorScale(categories.indexOf(d.Category)));
     
-        // Eixo x
         svg.append('g')
           .attr('transform', `translate(0,${height})`)
           .call(d3.axisBottom(x))
@@ -73,8 +86,6 @@ function DashboardBar({ filteredData, startDate, endDate, selectedApplication, s
           .style('text-anchor', 'middle')
           .attr('font-size', '12px');
           
-    
-        // Eixo y
         svg.append('g')
           .call(d3.axisLeft(y))
           .call(g => g.select('.domain').remove());
